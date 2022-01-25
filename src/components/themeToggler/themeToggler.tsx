@@ -5,7 +5,8 @@ import switchTheme from 'utils/themeSwitch';
 
 interface IStyledIcon {
     themeCtx: string;
-    onClick: any;
+    onClick: () => void;
+    disableToggle: boolean;
 }
 const StyledIcon = styled.a<IStyledIcon>`
     color: white;
@@ -14,7 +15,7 @@ const StyledIcon = styled.a<IStyledIcon>`
     height: 27px;
     align-self: center;
     width: 27px;
-    cursor: pointer;
+    cursor: ${({ disableToggle }) => (!disableToggle ? 'pointer' : 'default')};
 
     ${({ themeCtx }) =>
         themeCtx === 'light' &&
@@ -23,13 +24,14 @@ const StyledIcon = styled.a<IStyledIcon>`
             width: 30px;
         `}
 `;
-interface ChildProps {
+interface ThemeTogglerProps {
     onClickFn: null | (() => void);
     themeContext: 'dark' | 'light' | 'christmas';
+    disableToggle: boolean;
 }
 
-const ThemeToggler: React.FC<ChildProps> = ({ onClickFn, themeContext }) => (
-    <StyledIcon onClick={onClickFn} themeCtx={themeContext}></StyledIcon>
+const ThemeToggler: React.FC<ThemeTogglerProps> = ({ onClickFn, themeContext, disableToggle }) => (
+    <StyledIcon onClick={() => onClickFn} themeCtx={themeContext} disableToggle={disableToggle}></StyledIcon>
 );
 
 export default themeContext(ThemeToggler);

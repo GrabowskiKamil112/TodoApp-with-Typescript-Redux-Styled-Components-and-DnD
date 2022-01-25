@@ -7,10 +7,24 @@ const StyledTooltip = styled.div<{ right: number; top: number; width: number }>`
     top: ${({ top }) => top - 20}px;
     left: ${({ right, width }) => right + width / 2}px;
     background-color: aliceblue;
-    padding: 2px;
+    padding: 2px 4px;
     border-radius: 5px;
+    z-index: 9999;
     font-size: 1.2rem;
     transform: translate(-50%, -50%);
+
+    ::before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 5px;
+        border-style: solid;
+        border-color: aliceblue transparent transparent transparent;
+        top: 16px;
+        left: 50%;
+        transform: translate(-50%);
+    }
 `;
 
 interface ITooltip {
@@ -22,6 +36,7 @@ const Tooltip: React.FC<ITooltip> = ({ component, content }) => {
     const [show, setShow] = useState<boolean>(false);
     const { current } = component;
     const Rect = current?.getBoundingClientRect();
+    console.log(component);
 
     const x = Math.floor(Rect?.left ?? 0);
     const y = Math.floor(Rect?.top ?? 0);

@@ -163,7 +163,10 @@ class UserPageTemplate extends Component<unknown, IState> {
                     <StyledWrapper>
                         <HeaderWrapper>
                             <Header big>T O D O</Header>
-                            <ThemeToggler onClickFn={disableToggle ? null : this.handleThemeToggle} />
+                            <ThemeToggler
+                                onClickFn={disableToggle ? null : this.handleThemeToggle}
+                                disableToggle={disableToggle}
+                            />
                         </HeaderWrapper>
                         <TodoList />
                     </StyledWrapper>
